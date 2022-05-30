@@ -121,14 +121,14 @@ namespace ReportSystem.Excel
                 return;
             }
 
-            if (sourceItem.Color.HasValue)
-            {
-                destinationItem.Color.SetColor(sourceItem.Color.Value);
-            }
-
             if (sourceItem.Style.HasValue)
             {
                 destinationItem.Style = (ExcelBorderStyle)sourceItem.Style;
+            }
+
+            if (sourceItem.Color.HasValue)
+            {
+                destinationItem.Color.SetColor(sourceItem.Color.Value);
             }
         }
     }

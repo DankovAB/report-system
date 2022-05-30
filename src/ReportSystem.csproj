@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Anatoliy Dankov</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>excel, csv, report</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryType></RepositoryType>
+    <RepositoryUrl>https://github.com/DankovAB/report-system</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
