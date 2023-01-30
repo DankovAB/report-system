@@ -54,6 +54,5 @@ namespace ReportSystem.Excel.SheetBuilder
         {
             return base.DataContentInternal(data);
         }
-
     }
 }

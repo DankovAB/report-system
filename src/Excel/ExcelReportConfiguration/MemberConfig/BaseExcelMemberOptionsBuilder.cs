@@ -46,6 +46,11 @@ namespace ReportSystem.Excel.ExcelReportConfiguration.MemberConfig
             return (TMemberOptionsBuilder)this;
         }
 
+        public virtual TMemberOptionsBuilder Style(ExcelPredefineStyle style)
+        {
+            return Style(style.Name);
+        }
+
         public virtual TMemberOptionsBuilder HeaderStyle(string predefinedStyleName)
         {
             Options.HeaderStyleName = predefinedStyleName;

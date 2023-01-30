@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using ReportSystem.Excel.ExcelReportConfiguration.Styles;
 using ReportSystem.Excel.ExcelReportConfiguration.Styles.Enums;
 
 namespace ReportSystem.Excel.SheetBuilder.BlockBuilder
@@ -10,7 +11,8 @@ namespace ReportSystem.Excel.SheetBuilder.BlockBuilder
         IBlockOptionsBuilder Background(Color color);
         IBlockOptionsBuilder HAlign(ExcelHorizontalAlignment alignment);
         IBlockOptionsBuilder VAlign(ExcelVerticalAlignment alignment);
-        IBlockOptionsBuilder Style(ExcelReportConfiguration.Styles.ExcelStyle style);
+        IBlockOptionsBuilder Style(ExcelStyle style);
+        IBlockOptionsBuilder Style(ExcelPredefineStyle predefineStyle);
         IBlockOptionsBuilder Style(string styleName);
         IBlockOptions Build();
     }

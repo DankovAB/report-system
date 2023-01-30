@@ -49,7 +49,7 @@ namespace ReportSystem.Excel
 
         private void Write(IEnumerable source, IExcelReportConfiguration config, TypeAccessor.TypeAccessor accessor)
         {
-            if (config.Options.IsSetHeaderStyle)
+            if (!config.Options.IsHideHeader && config.Options.IsSetHeaderStyle)
             {
                 var headerCells = GetHeaderRange(Worksheet, config, Cursor);
                 ExcelStyleApplier.ApplyStyle(config.Options.HeaderStyleName, config.Options.HeaderStyle, headerCells);
@@ -141,6 +141,8 @@ namespace ReportSystem.Excel
 
             range.Value = data;
 
+            Cursor.CurrentRow = lastMemberRow;
+
             Cursor.CurrentRow++;
             Cursor.CurrentColumn = StartColumn;
         }
@@ -156,7 +158,7 @@ namespace ReportSystem.Excel
 
             var maxRow = GetLastMemberPosition(alternativeCursor.CurrentRow, rowsCount);
             var maxColumn = data.GetLength(1);
-            var allRange = Worksheet.Cells[2, 1, maxRow, maxColumn];
+            var allRange = Worksheet.Cells[prevCursor.CurrentRow, prevCursor.CurrentColumn, maxRow, maxColumn];
 
             // set default style for all cells for performance reasons
             var optionsWithStyle = memberOptions.FirstOrDefault(x => x.IsStyleSet);
@@ -282,7 +284,7 @@ namespace ReportSystem.Excel
             var memberOptions = config.MemberConfigurations.GetActiveOrderlyOptions();
             foreach (var options in memberOptions)
             {
-                string header = options.GetHeader(config.Options.UseHeaderHumanizer);
+                var header = options.GetHeader(config.Options.UseHeaderHumanizer);
 
                 if (!options.IsHeaderStyleSet && !config.Options.IsSetHeaderStyle && config.Options.IsSetDefaultStyle)
                 {

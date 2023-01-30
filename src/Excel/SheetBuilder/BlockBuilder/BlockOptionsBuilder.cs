@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using ReportSystem.Excel.ExcelReportConfiguration.Styles;
 using ReportSystem.Excel.ExcelReportConfiguration.Styles.Enums;
 
 namespace ReportSystem.Excel.SheetBuilder.BlockBuilder
@@ -48,7 +49,7 @@ namespace ReportSystem.Excel.SheetBuilder.BlockBuilder
             return this;
         }
 
-        public IBlockOptionsBuilder Style(ExcelReportConfiguration.Styles.ExcelStyle style)
+        public IBlockOptionsBuilder Style(ExcelStyle style)
         {
             Options.Style = style;
             return this;
@@ -57,6 +58,12 @@ namespace ReportSystem.Excel.SheetBuilder.BlockBuilder
         public IBlockOptionsBuilder Style(string styleName)
         {
             Options.StyleName = styleName;
+            return this;
+        }
+
+        public IBlockOptionsBuilder Style(ExcelPredefineStyle predefineStyle)
+        {
+            Options.StyleName = predefineStyle.Name;
             return this;
         }
 

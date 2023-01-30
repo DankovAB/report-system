@@ -22,7 +22,7 @@ namespace ReportSystem.Excel.SheetBuilder
 
         public TSheetBuilder Freeze(int freezeFirstRows, int freezeFirstColumns)
         {
-            Worksheet.View.FreezePanes(freezeFirstColumns, freezeFirstRows);
+            Worksheet.View.FreezePanes(freezeFirstRows, freezeFirstColumns);
             return (TSheetBuilder)this;
         }
 
