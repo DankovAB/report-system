@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using OfficeOpenXml;
 using ReportSystem.Excel.ExcelReportConfiguration.Styles;
 
@@ -18,6 +19,8 @@ namespace ReportSystem.Excel
             Package = new ExcelPackage();
         }
 
+        public abstract IBaseExcelReportBuilder<TSheetBuilder> Sheet(string sheetName,
+            Func<TSheetBuilder, Task> action);
         public abstract IBaseExcelReportBuilder<TSheetBuilder> Sheet(string sheetName, Action<TSheetBuilder> action);
 
         public IBaseExcelReportBuilder<TSheetBuilder> PredefineStyles(IEnumerable<ExcelPredefineStyle> styles)

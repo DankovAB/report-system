@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using ReportSystem.Excel.SheetBuilder.OneTable;
 
 namespace ReportSystem.Excel
@@ -7,6 +8,19 @@ namespace ReportSystem.Excel
     {
         public OneTableExcelReportBuilder(IExcelStyleApplier styleApplier) : base(styleApplier)
         {
+        }
+
+        public override IBaseExcelReportBuilder<IOneTableSheetBuilder> Sheet(string sheetName, Func<IOneTableSheetBuilder, Task> action)
+        {
+            var worksheet = Workbook.Worksheets.Add(sheetName);
+
+            var sheetBuilder = new OneTableSheetBuilder(StyleApplier, worksheet);
+            Task.Run(async () =>
+            {
+                await action(sheetBuilder);
+            }).Wait();
+
+            return this;
         }
 
         public override IBaseExcelReportBuilder<IOneTableSheetBuilder> Sheet(string sheetName,

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using ReportSystem.Excel.SheetBuilder;
 
 namespace ReportSystem.Excel
@@ -8,6 +9,21 @@ namespace ReportSystem.Excel
     {
         public ExcelReportBuilder(IExcelStyleApplier styleApplier) : base(styleApplier)
         {
+        }
+
+        public override IBaseExcelReportBuilder<ISheetBuilder> Sheet(string sheetName,
+            Func<ISheetBuilder, Task> action)
+        {
+            var worksheet = Workbook.Worksheets.Add(sheetName);
+
+            var sheetBuilder = new SheetBuilder.SheetBuilder(StyleApplier, worksheet);
+            Task.Run(async () =>
+            {
+                await action(sheetBuilder);
+
+            }).Wait();
+
+            return this;
         }
 
         public override IBaseExcelReportBuilder<ISheetBuilder> Sheet(string sheetName, Action<ISheetBuilder> action)
