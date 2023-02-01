@@ -54,5 +54,17 @@ namespace ReportSystem.Excel.SheetBuilder
         {
             return base.DataContentInternal(data);
         }
+
+        public virtual ISheetBuilder SetColumnsWidth(IEnumerable<double> columnWidth)
+        {
+            var colIdx = 1;
+            foreach (var width in columnWidth)
+            {
+                Column(colIdx, c => c.Width(width));
+                colIdx++;
+            }
+
+            return this;
+        }
     }
 }

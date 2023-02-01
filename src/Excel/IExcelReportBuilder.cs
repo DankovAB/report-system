@@ -2,7 +2,7 @@
 
 namespace ReportSystem.Excel
 {
-    public interface IExcelReportBuilder : IBaseExcelReportBuilder<ISheetBuilder>
+    public interface IExcelReportBuilder : IBaseExcelReportBuilder<ExcelReportBuilder, ISheetBuilder>
     {
 
     }

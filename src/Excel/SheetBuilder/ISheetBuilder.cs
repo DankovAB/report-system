@@ -10,6 +10,7 @@ namespace ReportSystem.Excel.SheetBuilder
         ISheetBuilder Block(Action<IBlockBuilder> action);
         ISheetBuilder Column(int columnNumber, Action<IColumnBuilder> action);
         ISheetBuilder AutoFitColumns(int fromColumnsNumber, int toColumnsNumber);
+        ISheetBuilder SetColumnsWidth(IEnumerable<double> columnWidth);
         ISheetBuilder DataContent<T>(IEnumerable<T> data, IExcelReportConfiguration configuration)
             where T : class;
 

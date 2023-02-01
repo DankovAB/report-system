@@ -7,7 +7,9 @@ using ReportSystem.Excel.ExcelReportConfiguration.Styles;
 
 namespace ReportSystem.Excel
 {
-    public abstract class BaseExcelReportBuilder<TSheetBuilder> : IBaseExcelReportBuilder<TSheetBuilder>
+    public abstract class BaseExcelReportBuilder<TReport, TSheetBuilder>
+        : IBaseExcelReportBuilder<TReport, TSheetBuilder>
+        where TReport: IBaseExcelReportBuilder<TReport, TSheetBuilder>
     {
         protected ExcelPackage Package;
         protected ExcelWorkbook Workbook => Package.Workbook;
@@ -19,11 +21,11 @@ namespace ReportSystem.Excel
             Package = new ExcelPackage();
         }
 
-        public abstract IBaseExcelReportBuilder<TSheetBuilder> Sheet(string sheetName,
+        public abstract TReport Sheet(string sheetName,
             Func<TSheetBuilder, Task> action);
-        public abstract IBaseExcelReportBuilder<TSheetBuilder> Sheet(string sheetName, Action<TSheetBuilder> action);
+        public abstract TReport Sheet(string sheetName, Action<TSheetBuilder> action);
 
-        public IBaseExcelReportBuilder<TSheetBuilder> PredefineStyles(IEnumerable<ExcelPredefineStyle> styles)
+        public IBaseExcelReportBuilder<TReport, TSheetBuilder> PredefineStyles(IEnumerable<ExcelPredefineStyle> styles)
         {
             foreach (var style in styles)
             {

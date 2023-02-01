@@ -6,11 +6,13 @@ using ReportSystem.Excel.ExcelReportConfiguration.Styles;
 
 namespace ReportSystem.Excel
 {
-    public interface IBaseExcelReportBuilder<out TSheetBuilder> : IDisposable
+    public interface IBaseExcelReportBuilder<TReport,out TSheetBuilder>
+        : IDisposable
+        where TReport : IBaseExcelReportBuilder<TReport, TSheetBuilder>
     {
-        IBaseExcelReportBuilder<TSheetBuilder> Sheet(string sheetName, Func<TSheetBuilder, Task> action);
-        IBaseExcelReportBuilder<TSheetBuilder> Sheet(string sheetName, Action<TSheetBuilder> action);
-        IBaseExcelReportBuilder<TSheetBuilder> PredefineStyles(IEnumerable<ExcelPredefineStyle> styles);
+        TReport Sheet(string sheetName, Func<TSheetBuilder, Task> action);
+        TReport Sheet(string sheetName, Action<TSheetBuilder> action);
+        IBaseExcelReportBuilder<TReport, TSheetBuilder> PredefineStyles(IEnumerable<ExcelPredefineStyle> styles);
         byte[] Save();
         void SaveAs(FileInfo file);
         void SaveAs(Stream outputStream);

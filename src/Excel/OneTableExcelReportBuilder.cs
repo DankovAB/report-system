@@ -4,13 +4,14 @@ using ReportSystem.Excel.SheetBuilder.OneTable;
 
 namespace ReportSystem.Excel
 {
-    public class OneTableExcelReportBuilder : BaseExcelReportBuilder<IOneTableSheetBuilder>, IOneTableExcelReportBuilder
+    [Obsolete("Please use ExcelReportBuilder instead of OneTableExcelReportBuilder")]
+    public class OneTableExcelReportBuilder : BaseExcelReportBuilder<OneTableExcelReportBuilder, IOneTableSheetBuilder>, IOneTableExcelReportBuilder
     {
         public OneTableExcelReportBuilder(IExcelStyleApplier styleApplier) : base(styleApplier)
         {
         }
 
-        public override IBaseExcelReportBuilder<IOneTableSheetBuilder> Sheet(string sheetName, Func<IOneTableSheetBuilder, Task> action)
+        public override OneTableExcelReportBuilder Sheet(string sheetName, Func<IOneTableSheetBuilder, Task> action)
         {
             var worksheet = Workbook.Worksheets.Add(sheetName);
 
@@ -23,7 +24,7 @@ namespace ReportSystem.Excel
             return this;
         }
 
-        public override IBaseExcelReportBuilder<IOneTableSheetBuilder> Sheet(string sheetName,
+        public override OneTableExcelReportBuilder Sheet(string sheetName,
             Action<IOneTableSheetBuilder> action)
         {
             var worksheet = Workbook.Worksheets.Add(sheetName);
